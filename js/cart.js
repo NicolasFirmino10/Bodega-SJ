@@ -1,4 +1,4 @@
-const WHATSAPP_PHONE = "5585992140821";
+﻿const WHATSAPP_PHONE = "5585992140821";
 
 // ================= ESTADO DO APP =================
 let cart = [];
@@ -216,13 +216,13 @@ document.getElementById("address-form")?.addEventListener("submit", (e) => {
   const name = document.getElementById("customer-name").value.trim();
   const address = document.getElementById("address-input").value.trim();
   
-  let msg = ` * 🛒 NOVO PEDIDO - BODEGA SÃO JOSÉ*\n\n *👤 Cliente:* ${name}\n *📍 Endereço:* ${address}\n\n *📦 ITENS:*\n`;
+  let msg = ` *NOVO PEDIDO - BODEGA SÃO JOSÉ*\n\n *👤 Cliente:* ${name}\n *Endereço:* ${address}\n\n *ITENS:*\n`;
   let total = 0;
   cart.forEach(i => {
     total += i.price * i.quantity;
     msg += `• ${i.quantity}x ${i.name} - R$ ${(i.price * i.quantity).toFixed(2).replace('.', ',')}\n`;
   });
-  msg += `\n *💰TOTAL: R$ ${total.toFixed(2).replace('.', ',')}*`;
+  msg += `\n *TOTAL: R$ ${total.toFixed(2).replace('.', ',')}*`;
   
   window.open(`https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent(msg)}`, "_blank");
   cart = [];
