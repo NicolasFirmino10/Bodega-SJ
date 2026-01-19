@@ -1,8 +1,18 @@
-// Troque este número pelo número da sua loja (55 + DDD + número)
-// Exemplo: 55 11 99999-0000  ->  "5511999990000"
+
 const WHATSAPP_PHONE = "5585992140821";
 
-const cart = [];
+let cart = [];
+
+try {
+  cart = JSON.parse(localStorage.getItem("cart")) || [];
+} catch (e) {
+  cart = [];
+  localStorage.removeItem("cart");
+}
+
+function saveCart() {
+  localStorage.setItem("cart", JSON.stringify(cart));
+}
 
 const cartCountEl = document.getElementById("cart-count");
 const cartEl = document.getElementById("cart");
@@ -96,10 +106,12 @@ if (document.readyState === "loading") {
   document.addEventListener("DOMContentLoaded", () => {
     initializeCategoryFilters();
     initializeSearchBar();
+    updateCartUI();
   });
 } else {
   initializeCategoryFilters();
   initializeSearchBar();
+  updateCartUI(); 
 }
 
 // Adicionar ao carrinho
@@ -143,7 +155,7 @@ cartItemsEl.addEventListener("click", (event) => {
     const index = cart.findIndex((i) => i.id === id);
     if (index > -1) cart.splice(index, 1);
   }
-
+   saveCart();  
   updateCartUI();
 });
 
@@ -156,7 +168,7 @@ function showItemsSection() {
 function showAddressSection() {
   cartSectionItems.style.display = "none";
   cartSectionAddress.style.display = "block";
-  document.getElementById("address-input").focus();
+  document.getElementById("customer-name").focus();
 }
 
 function sendToWhatsApp(customerName, address) {
@@ -187,7 +199,11 @@ function sendToWhatsApp(customerName, address) {
     message
   )}`;
 
-  window.open(url, "_blank");
+if (confirm("Pedido enviado! Deseja limpar o carrinho?")) {
+  cart.length = 0;
+  saveCart();
+  updateCartUI();
+}
 }
 function addToCart(product) {
   const existing = cart.find((item) => item.id === product.id);
@@ -197,7 +213,7 @@ function addToCart(product) {
   } else {
     cart.push({ ...product, quantity: 1 });
   }
-
+  saveCart();
   updateCartUI();
 }
 

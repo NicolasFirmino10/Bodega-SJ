@@ -6,9 +6,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   
   <!-- Estilos -->
-  <link rel="stylesheet" href="../../css/global.css" />
-  <link rel="stylesheet" href="../../css/index.css" />
-  <link rel="stylesheet" href="../../css/footer.css" />
+  <link rel="stylesheet" href="./css/global.css" />
+  <link rel="stylesheet" href="./css/index.css" />
+  <link rel="stylesheet" href="./css/footer.css" />
 
   <!-- Fonte Google -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -19,16 +19,16 @@
   />
 </head>
 <body>
-  <script src="../../js/auth.js"></script>
+  <script src="./js/auth.js"></script>
   <script>requireAuth();</script>
   
   <header class="header">
     <div class="container header__content">
-      <a href="/pages/index/index.html" class="logo">Bodega<span> São José</span></a>
+      <a href="index.html" class="logo">Bodega<span> São José</span></a>
 
       <nav class="nav">
-        <a href="/pages/index/index.html">🏠 Início</a>
-        <a href="/pages/produtos/produtos.html">🛍️ Produtos</a>
+        <a href="index.html">🏠 Início</a>
+        <a href="produtos.html">🛍️ Produtos</a>
       </nav>
 
       <!-- Botão hamburger para mobile -->
@@ -46,8 +46,8 @@
     
     <!-- Menu mobile -->
     <nav class="nav-mobile" id="nav-mobile">
-      <a href="/pages/index/index.html" class="nav-mobile__link">🏠 Início</a>
-      <a href="/pages/produtos/produtos.html" class="nav-mobile__link">🛍️ Produtos</a>
+      <a href="./index.html" class="nav-mobile__link">🏠 Início</a>
+      <a href="./produtos.html" class="nav-mobile__link">🛍️ Produtos</a>
     </nav>
   </header>
 
@@ -65,7 +65,7 @@
             Monte seu carrinho e finalize pelo WhatsApp em poucos cliques.
           </p>
           <div class="hero__actions">
-            <a href="/pages/produtos/produtos.html" class="btn btn--primary">Começar compras</a>
+            <a href="produtos.html" class="btn btn--primary">Começar compras</a>
             <a href="#contato" class="btn btn--ghost">Entre em contato</a>
           </div>
           <div class="hero__stats">
@@ -81,7 +81,7 @@
         </div>
 
         <div class="hero__image">
-          <div class="hero__circle"><img src="../../assets/img/carrinho.png" alt=""></div>
+          <div class="hero__circle"><img src="./assets/img/carrinho.png" alt=""></div>
           <div class="hero__card hero__card--1">
             <span>🏪</span>
             <strong>3 áreas</strong>
@@ -128,17 +128,17 @@
       <div class="container">
         <h2 class="section-title">Nossos Produtos</h2>
         <div class="categories__grid">
-          <a href="/pages/produtos/produtos.html" class="category-card">
+          <a href="produtos.html" class="category-card">
             <div class="category-card__icon">🐾</div>
             <h3>Petshop</h3>
             <p>Produtos para cães, gatos e pets em geral</p>
           </a>
-          <a href="/pages/produtos/produtos.html" class="category-card">
+          <a href="produtos.html" class="category-card">
             <div class="category-card__icon">🛒</div>
             <h3>Mercearia</h3>
             <p>Alimentos e produtos do dia a dia</p>
           </a>
-          <a href="/pages/produtos/produtos.html" class="category-card">
+          <a href="produtos.html" class="category-card">
             <div class="category-card__icon">🍔</div>
             <h3>Lanches</h3>
             <p>Salgados, cafés e merendas deliciosas</p>
@@ -187,15 +187,13 @@
         <div class="footer__column">
           <h4>Links Rápidos</h4>
           <ul>
-            <li><a href="/pages/index/index.html">Início</a></li>
-            <li><a href="/pages/produtos/produtos.html">Produtos</a></li>
-            <li><a href="#contato">Contato</a></li>
+            <li><a href="index.html">Início</a></li>
+            <li><a href="produtos.html">Produtos</a></li>
           </ul>
         </div>
         <div class="footer__column">
           <h4>Contato</h4>
           <p>WhatsApp: (85) 99214-0821</p>
-          <p>Email: contato@bodegasj.com</p>
           <p>Baturité - CE</p>
         </div>
       </div>
@@ -205,8 +203,8 @@
     </div>
   </footer>
 
-  <script src="../../js/auth.js"></script>
-  <script src="../../js/mobile-menu.js" defer></script>
-  <script src="../../js/cart.js" defer></script>
+  <script src="./js/auth.js"></script>
+  <script src="./js/mobile-menu.js" defer></script>
+  <script src="./js/cart.js" defer></script>
 </body>
 </html>
