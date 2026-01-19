@@ -532,6 +532,37 @@
   margin-top: auto;
 }
 
+/* --- ANIMAÇÕES SUTIS --- */
+
+/* Efeito de "pulso" no Card */
+@keyframes card-bump {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.02); }
+  100% { transform: scale(1); }
+}
+
+.product-card--bump {
+  animation: card-bump 0.3s ease-out;
+}
+
+/* Efeito no contador do Carrinho */
+@keyframes badge-bump {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.4); }
+  100% { transform: scale(1); }
+}
+
+.cart-toggle__count--bump {
+  animation: badge-bump 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* Estado de Sucesso do Botão */
+.btn--success {
+  background: #28a745 !important; /* Verde Sucesso */
+  border-color: #28a745 !important;
+  color: white !important;
+}
+
 /* RESPONSIVO */
 /* Tablets - 1024px e abaixo */
 @media (max-width: 1024px) {

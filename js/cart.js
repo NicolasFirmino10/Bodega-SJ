@@ -3,12 +3,11 @@ const WHATSAPP_PHONE = "5585992140821";
 // ================= ESTADO DO APP =================
 let cart = [];
 
-// Tenta carregar o carrinho do LocalStorage com tratamento de erro
+// Tenta carregar o carrinho do LocalStorage
 try {
   const savedCart = localStorage.getItem("cart");
   cart = savedCart ? JSON.parse(savedCart) : [];
 } catch (e) {
-  console.error("Erro ao carregar carrinho:", e);
   cart = [];
 }
 
@@ -74,10 +73,7 @@ function addToCart(id, name, price) {
       quantity: 1
     });
   }
-
   updateCartUI();
-  // Opcional: abrir o carrinho ao adicionar item
-  // toggleCart(true); 
 }
 
 function updateCartUI() {
@@ -151,24 +147,53 @@ function applyFilters() {
   });
 }
 
+// ================= ANIMAÇÕES =================
+function animateCartCount() {
+  if (!cartCountEl) return;
+  cartCountEl.classList.remove("cart-toggle__count--bump");
+  void cartCountEl.offsetWidth; // Força reflow
+  cartCountEl.classList.add("cart-toggle__count--bump");
+}
+
 // ================= EVENTOS (DELEGAÇÃO) =================
 document.addEventListener("click", (e) => {
-  // Botão Adicionar ao Carrinho (usando closest para capturar o botão mesmo se clicar no texto)
+  // 1. Botão Adicionar ao Carrinho + Animações
   const addBtn = e.target.closest(".add-to-cart");
   if (addBtn) {
     const card = addBtn.closest(".product-card");
     if (card) {
-      addToCart(card.dataset.id, card.dataset.name, card.dataset.price);
+      const id = card.dataset.id;
+      const name = card.dataset.name;
+      const price = card.dataset.price;
+
+      addToCart(id, name, price);
+
+      // Animação no Card
+      card.classList.remove("product-card--bump");
+      void card.offsetWidth; 
+      card.classList.add("product-card--bump");
+
+      // Feedback no Botão
+      const originalText = addBtn.textContent;
+      addBtn.textContent = "✅ Ok!";
+      addBtn.classList.add("btn--success");
+
+      setTimeout(() => {
+        addBtn.textContent = originalText;
+        addBtn.classList.remove("btn--success");
+        card.classList.remove("product-card--bump");
+      }, 800);
+
+      animateCartCount();
     }
     return;
   }
 
-  // Ações dentro do carrinho (+, -, remover)
+  // 2. Ações dentro do carrinho (+, -, remover)
   const cartBtn = e.target.closest(".cart-item__btn");
   if (cartBtn) {
     const action = cartBtn.dataset.action;
-    const cartItem = cartBtn.closest(".cart-item");
-    const id = cartItem.dataset.id;
+    const id = cartBtn.closest(".cart-item").dataset.id;
     const index = cart.findIndex(i => String(i.id) === String(id));
 
     if (index !== -1) {
@@ -180,18 +205,19 @@ document.addEventListener("click", (e) => {
         cart.splice(index, 1);
       }
       updateCartUI();
+      animateCartCount();
     }
     return;
   }
 
-  // Abrir/Fechar Carrinho
+  // 3. Abrir/Fechar Carrinho
   if (e.target.closest(".cart-toggle")) {
     toggleCart(true);
   } else if (e.target.classList.contains("cart__close") || e.target.classList.contains("cart__overlay")) {
     toggleCart(false);
   }
 
-  // Navegação do Carrinho
+  // 4. Navegação do Carrinho
   if (e.target.id === "btn-next-address") {
     if (cart.length === 0) return alert("Carrinho vazio!");
     cartSectionItems.style.display = "none";
@@ -203,7 +229,7 @@ document.addEventListener("click", (e) => {
     cartSectionAddress.style.display = "none";
   }
 
-  // Filtros de Categoria
+  // 5. Filtros de Categoria
   const catBtn = e.target.closest(".category-btn");
   if (catBtn) {
     document.querySelectorAll(".category-btn").forEach(b => b.classList.remove("active"));
@@ -221,8 +247,6 @@ document.getElementById("address-form")?.addEventListener("submit", (e) => {
   const name = document.getElementById("customer-name").value.trim();
   const address = document.getElementById("address-input").value.trim();
 
-  if (!name || !address) return alert("Por favor, preencha todos os campos.");
-
   let msg = `🛒 *NOVO PEDIDO - BODEGA SÃO JOSÉ*\n\n`;
   msg += `👤 *Cliente:* ${name}\n📍 *Endereço:* ${address}\n\n📦 *ITENS:*\n`;
   
@@ -236,7 +260,6 @@ document.getElementById("address-form")?.addEventListener("submit", (e) => {
 
   window.open(`https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent(msg)}`, "_blank");
   
-  // Limpar carrinho após finalizar
   cart = [];
   updateCartUI();
   toggleCart(false);
@@ -258,4 +281,10 @@ function toggleCart(open) {
 document.addEventListener("DOMContentLoaded", () => {
   renderProducts();
   updateCartUI();
+  
+  // Garante que as seções de categoria apareçam (fade-in)
+  document.querySelectorAll('.category-section').forEach(section => {
+    section.style.opacity = "1";
+    section.style.transform = "translateY(0)";
+  });
 });
