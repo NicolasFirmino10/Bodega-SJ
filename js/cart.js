@@ -220,9 +220,9 @@ document.getElementById("address-form")?.addEventListener("submit", (e) => {
   let total = 0;
   cart.forEach(i => {
     total += i.price * i.quantity;
-    msg += `• ${i.name} (${i.quantity}x) - R$ ${(i.price * i.quantity).toFixed(2).replace('.', ',')}\n`;
+    msg += `• ${i.quantity}x ${i.name} - R$ ${(i.price * i.quantity).toFixed(2).replace('.', ',')}\n`;
   });
-  msg += `\n *💰 TOTAL: R$ ${total.toFixed(2).replace('.', ',')}*`;
+  msg += `\n *💰TOTAL: R$ ${total.toFixed(2).replace('.', ',')}*`;
   
   window.open(`https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent(msg)}`, "_blank");
   cart = [];
