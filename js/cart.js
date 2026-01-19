@@ -173,13 +173,10 @@ function showAddressSection() {
 
 function sendToWhatsApp(customerName, address) {
   if (!WHATSAPP_PHONE || WHATSAPP_PHONE === "5599999999999") {
-    alert(
-      "Configure o número de WhatsApp no arquivo script.js (const WHATSAPP_PHONE)."
-    );
+    alert("Configure o número de WhatsApp no arquivo script.js.");
     return;
   }
 
-  // Montar mensagem estruturada
   let message = `*NOVO PEDIDO - BODEGA SÃO JOSÉ*\n\n`;
   message += `*Cliente:* ${customerName}\n`;
   message += `*Endereço:* ${address}\n\n`;
@@ -187,24 +184,26 @@ function sendToWhatsApp(customerName, address) {
 
   let total = 0;
   cart.forEach((item) => {
-    const itemTotal = item.price * item.quantity;
-    total += itemTotal;
+    total += item.price * item.quantity;
     message += `${item.name}\n`;
     message += `  └─ *${item.quantity}x* ${formatCurrency(item.price)}\n`;
   });
 
   message += `\n*TOTAL:* ${formatCurrency(total)}`;
 
-  const url = `https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent(
-    message
-  )}`;
+  const url = `https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent(message)}`;
 
-if (confirm("Pedido enviado! Deseja limpar o carrinho?")) {
-  cart.length = 0;
-  saveCart();
-  updateCartUI();
+  // 🔴 ISSO É O QUE ESTAVA FALTANDO
+  window.open(url, "_blank");
+
+  if (confirm("Pedido enviado! Deseja limpar o carrinho?")) {
+    cart.length = 0;
+    saveCart();
+    updateCartUI();
+  }
 }
-}
+
+
 function addToCart(product) {
   const existing = cart.find((item) => item.id === product.id);
 
