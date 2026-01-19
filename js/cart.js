@@ -177,19 +177,19 @@ function sendToWhatsApp(customerName, address) {
     return;
   }
 
-  let message = `*NOVO PEDIDO - BODEGA SÃO JOSÉ*\n\n`;
-  message += `*Cliente:* ${customerName}\n`;
-  message += `*Endereço:* ${address}\n\n`;
-  message += `ITENS DO PEDIDO:\n`;
+ let message = `🛒 *NOVO PEDIDO - BODEGA SÃO JOSÉ*\n\n`;
+message += `👤 *Cliente:* ${customerName}\n`;
+message += `📍 *Endereço:* ${address}\n\n`;
+message += `📦 *ITENS DO PEDIDO:*\n`;
 
-  let total = 0;
-  cart.forEach((item) => {
-    total += item.price * item.quantity;
-    message += `${item.name}\n`;
-    message += `  └─ *${item.quantity}x* ${formatCurrency(item.price)}\n`;
-  });
+let total = 0;
+cart.forEach((item) => {
+  total += item.price * item.quantity;
+  message += `${item.name}\n`;
+  message += `  └─ ✖️ *${item.quantity}* ${formatCurrency(item.price)}\n`;
+});
 
-  message += `\n*TOTAL:* ${formatCurrency(total)}`;
+message += `\n💰 *TOTAL:* ${formatCurrency(total)}`;
 
   const url = `https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent(message)}`;
 
