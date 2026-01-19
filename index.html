@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="UTF-8" />
   <title>Bodega São José</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  
+
   <!-- Estilos -->
   <link rel="stylesheet" href="./css/global.css" />
   <link rel="stylesheet" href="./css/index.css" />
@@ -13,15 +14,16 @@
   <!-- Fonte Google -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
-    rel="stylesheet"
-  />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet" />
 </head>
+
 <body>
   <script src="./js/auth.js"></script>
-  <script>requireAuth();</script>
-  
+  <script>
+    requireAuth();
+  </script>
+
   <header class="header">
     <div class="container header__content">
       <a href="index.html" class="logo">Bodega<span> São José</span></a>
@@ -38,12 +40,12 @@
         <span class="nav-toggle__line"></span>
       </button>
 
-      <button class="cart-toggle" aria-label="Abrir carrinho">
+      <button class="cart-toggle" onclick="window.location.href='produtos.html'">
         <span class="cart-toggle__icon">🛒</span>
         <span class="cart-toggle__count" id="cart-count">0</span>
       </button>
     </div>
-    
+
     <!-- Menu mobile -->
     <nav class="nav-mobile" id="nav-mobile">
       <a href="./index.html" class="nav-mobile__link">🏠 Início</a>
@@ -61,7 +63,7 @@
             A <span>benção</span> da variedade <br> para o seu lar!
           </h1>
           <p>
-            Petshop, mercearia e lanches. Tudo que você precisa em um só lugar. 
+            Petshop, mercearia e lanches. Tudo que você precisa em um só lugar.
             Monte seu carrinho e finalize pelo WhatsApp em poucos cliques.
           </p>
           <div class="hero__actions">
@@ -156,7 +158,8 @@
             <div class="contact-card__icon">💬</div>
             <h3>WhatsApp</h3>
             <p>(85) 99214-0821</p>
-            <a href="https://wa.me/5585992140821?text=Olá! Gostaria de conhecer melhor os produtos da Bodega São José." target="_blank" class="btn btn--primary btn--sm">Abrir Chat</a>
+            <a href="https://wa.me/5585992140821?text=Olá! Gostaria de conhecer melhor os produtos da Bodega São José."
+              target="_blank" class="btn btn--primary btn--sm">Abrir Chat</a>
           </div>
           <div class="contact-card">
             <div class="contact-card__icon">📍</div>
@@ -203,8 +206,8 @@
     </div>
   </footer>
 
-  <script src="./js/auth.js"></script>
   <script src="./js/mobile-menu.js" defer></script>
   <script src="./js/cart.js" defer></script>
 </body>
+
 </html>
