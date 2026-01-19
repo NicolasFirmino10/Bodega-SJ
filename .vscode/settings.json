@@ -1,0 +1,20 @@
+{
+    "cursor.modelProviders": {
+      "gemini": {
+        "type": "openai-compatible",
+        "baseUrl": "https://generativelanguage.googleapis.com/v1beta/openai/",
+        "apiKey": "AIzaSyA7H_27pfKvEsMfr9smiGtQNS8Ow0CIEcw",
+        "models": [
+          {
+            "name": "gemini-1.5-flash",
+            "contextLength": 128000
+          },
+          {
+            "name": "gemini-1.5-pro",
+            "contextLength": 128000
+          }
+        ]
+      }
+    }
+  }
+  

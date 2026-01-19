@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Bodega São José - Produtos</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <!-- Estilos -->
+  <link rel="stylesheet" href="../../css/global.css" />
+  <link rel="stylesheet" href="../../css/produtos.css" />
+  <link rel="stylesheet" href="../../css/footer.css" />
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <script src="../../js/auth.js"></script>
+  <script>requireAuth();</script>
+  
+  <header class="header">
+    <div class="container header__content">
+      <a href="/pages/index/index.html" class="logo">Bodega<span>São José</span></a>
+      <nav class="nav">
+        <a href="/pages/index/index.html">🏠 Início</a>
+        <a href="/pages/produtos/produtos.html">🛍️ Produtos</a>
+      </nav>
+      
+      <!-- Botão hamburger para mobile -->
+      <button class="nav-toggle" aria-label="Abrir menu" id="nav-toggle">
+        <span class="nav-toggle__line"></span>
+        <span class="nav-toggle__line"></span>
+        <span class="nav-toggle__line"></span>
+      </button>
+      
+      <button class="cart-toggle" aria-label="Abrir carrinho">
+        <span class="cart-toggle__icon">🛒</span>
+        <span class="cart-toggle__count" id="cart-count">0</span>
+      </button>
+    </div>
+    
+    <!-- Menu mobile -->
+    <nav class="nav-mobile" id="nav-mobile">
+      <a href="/pages/index/index.html" class="nav-mobile__link">🏠 Início</a>
+      <a href="/pages/produtos/produtos.html" class="nav-mobile__link">🛍️ Produtos</a>
+    </nav>
+  </header>
+
+  <main>
+    <section id="produtos" class="products">
+      <div class="container">
+        <header class="section-header">
+          <h2>Nossos Produtos</h2>
+          <p>Escolha seus produtos e finalize o pedido pelo WhatsApp.</p>
+        </header>
+
+        <div class="filters-container">
+          <div class="search-bar">
+            <input 
+              type="text" 
+              id="search-input" 
+              class="search-input" 
+              placeholder="🔍 Buscar produtos..." 
+              aria-label="Buscar produtos"
+            />
+          </div>
+
+          <div class="category-filters">
+            <button class="category-btn active" data-category="all">Todos</button>
+            <button class="category-btn" data-category="petshop">🐾 Petshop</button>
+            <button class="category-btn" data-category="mercearia">🛒 Mercearia</button>
+            <button class="category-btn" data-category="lanches">🍔 Lanches</button>
+          </div>
+        </div>
+
+        <!-- PETSHOP -->
+        <div class="category-section" data-category="petshop">
+          <h3 class="category-title">🐾 Petshop</h3>
+          <div class="products__grid" id="petshop-products"></div>
+        </div>
+
+        <!-- MERCEARIA -->
+        <div class="category-section" data-category="mercearia">
+          <h3 class="category-title">🛒 Mercearia</h3>
+          <div class="products__grid" id="mercearia-products"></div>
+        </div>
+
+        <!-- LANCHES -->
+        <div class="category-section" data-category="lanches">
+          <h3 class="category-title">🍔 Lanches</h3>
+          <div class="products__grid" id="lanches-products"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- CARRINHO -->
+  <aside class="cart" id="cart">
+    <div class="cart__overlay"></div>
+
+    <div class="cart__panel">
+      <!-- SEÇÃO 1: ITENS DO CARRINHO -->
+      <div class="cart__section" id="cart-section-items">
+        <header class="cart__header">
+          <h2>Seu carrinho</h2>
+          <button class="cart__close" aria-label="Fechar carrinho">&times;</button>
+        </header>
+
+        <div class="cart__items" id="cart-items">
+        </div>
+
+        <footer class="cart__footer">
+          <div class="cart__total">
+            <span>Total:</span>
+            <strong id="cart-total">R$ 0,00</strong>
+          </div>
+          <button class="btn btn--primary btn--full" id="btn-next-address">
+            Próximo
+          </button>
+          <small class="cart__note">
+            Preencha o endereço na próxima etapa.
+          </small>
+        </footer>
+      </div>
+
+      <!-- SEÇÃO 2: ENDEREÇO E FINALIZAÇÃO -->
+      <div class="cart__section" id="cart-section-address" style="display: none;">
+        <header class="cart__header">
+          <button class="cart__back" aria-label="Voltar">&larr; Voltar</button>
+          <button class="cart__close" aria-label="Fechar carrinho">&times;</button>
+        </header>
+
+        <div class="cart__address-form">
+          <h3>Finalize seu pedido</h3>
+          <form id="address-form">
+            <div class="form-group">
+              <label for="customer-name">Nome:</label>
+              <input 
+                type="text" 
+                id="customer-name" 
+                placeholder="Digite seu nome:" 
+                required 
+              />
+            </div>
+            <div class="form-group">
+              <label for="address-input">Endereço</label>
+              <input 
+                type="text" 
+                id="address-input" 
+                placeholder="Rua, número e referência" 
+                required 
+              />
+            </div>
+            <button type="submit" class="btn btn--primary btn--full">
+              Finalizar pelo WhatsApp
+            </button>
+            <small class="cart__note">
+              Você será redirecionado para o WhatsApp com o resumo do pedido.
+            </small>
+          </form>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- FOOTER -->
+ <footer class="footer">
+    <div class="container">
+      <div class="footer__grid">
+        <div class="footer__column">
+          <h4>Bodega São José</h4>
+          <p>Seus produtos favoritos, entregues com confiança.</p>
+        </div>
+        <div class="footer__column">
+          <h4>Links Rápidos</h4>
+          <ul>
+            <li><a href="/pages/index/index.html">Início</a></li>
+            <li><a href="/pages/produtos/produtos.html">Produtos</a></li>
+            <li><a href="#contato">Contato</a></li>
+          </ul>
+        </div>
+        <div class="footer__column">
+          <h4>Contato</h4>
+          <p>WhatsApp: (85) 99214-0821</p>
+          <p>Email: contato@bodegasj.com</p>
+          <p>Baturité - CE</p>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <p>&copy; 2026 Bodega São José. Todos os direitos reservados.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../../js/auth.js"></script>
+  <script src="../../js/mobile-menu.js" defer></script>
+  <script src="../../js/produtos.js" defer></script>
+  <script src="../../js/produtos-loader.js" defer></script>
+  <script src="../../js/cart.js" defer></script>
+</body>
+</html>
