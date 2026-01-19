@@ -3,7 +3,6 @@ const WHATSAPP_PHONE = "5585992140821";
 // ================= ESTADO DO APP =================
 let cart = [];
 
-// Tenta carregar o carrinho do LocalStorage
 try {
   const savedCart = localStorage.getItem("cart");
   cart = savedCart ? JSON.parse(savedCart) : [];
@@ -22,10 +21,7 @@ const cartSectionAddress = document.getElementById("cart-section-address");
 
 // ================= CARREGAMENTO DE PRODUTOS =================
 function renderProducts() {
-  if (typeof produtos === 'undefined') {
-    console.error("Erro: O objeto 'produtos' não foi encontrado. Verifique o arquivo produtos.js");
-    return;
-  }
+  if (typeof produtos === 'undefined') return;
 
   const categories = ['petshop', 'mercearia', 'lanches'];
   
@@ -66,19 +62,13 @@ function addToCart(id, name, price) {
   if (existingItem) {
     existingItem.quantity++;
   } else {
-    cart.push({
-      id: String(id),
-      name: name,
-      price: itemPrice,
-      quantity: 1
-    });
+    cart.push({ id: String(id), name: name, price: itemPrice, quantity: 1 });
   }
   updateCartUI();
 }
 
 function updateCartUI() {
   const totalItems = cart.reduce((sum, item) => sum + Number(item.quantity || 0), 0);
-  
   if (cartCountEl) {
     cartCountEl.textContent = totalItems;
     cartCountEl.style.display = totalItems > 0 ? "inline-block" : "none";
@@ -92,8 +82,6 @@ function updateCartUI() {
   } else {
     cartItemsEl.innerHTML = cart.map(item => {
       const preco = Number(item.price || 0);
-      const qtd = Number(item.quantity || 0);
-      
       return `
       <div class="cart-item" data-id="${item.id}">
         <div class="cart-item__info">
@@ -102,20 +90,16 @@ function updateCartUI() {
         </div>
         <div class="cart-item__actions">
           <button class="cart-item__btn" data-action="decrease">-</button>
-          <span>${qtd}</span>
+          <span>${item.quantity}</span>
           <button class="cart-item__btn" data-action="increase">+</button>
           <button class="cart-item__btn" data-action="remove">&times;</button>
         </div>
       </div>
     `}).join("");
 
-    const totalValue = cart.reduce((sum, item) => {
-      return sum + (Number(item.price || 0) * Number(item.quantity || 0));
-    }, 0);
-    
+    const totalValue = cart.reduce((sum, item) => sum + (Number(item.price) * item.quantity), 0);
     cartTotalEl.textContent = `R$ ${totalValue.toFixed(2).replace('.', ',')}`;
   }
-  
   localStorage.setItem("cart", JSON.stringify(cart));
 }
 
@@ -151,59 +135,41 @@ function applyFilters() {
 function animateCartCount() {
   if (!cartCountEl) return;
   cartCountEl.classList.remove("cart-toggle__count--bump");
-  void cartCountEl.offsetWidth; // Força reflow
+  void cartCountEl.offsetWidth;
   cartCountEl.classList.add("cart-toggle__count--bump");
 }
 
 // ================= EVENTOS (DELEGAÇÃO) =================
 document.addEventListener("click", (e) => {
-  // 1. Botão Adicionar ao Carrinho + Animações
+  // 1. Botão Adicionar
   const addBtn = e.target.closest(".add-to-cart");
   if (addBtn) {
     const card = addBtn.closest(".product-card");
     if (card) {
-      const id = card.dataset.id;
-      const name = card.dataset.name;
-      const price = card.dataset.price;
-
-      addToCart(id, name, price);
-
-      // Animação no Card
-      card.classList.remove("product-card--bump");
-      void card.offsetWidth; 
+      addToCart(card.dataset.id, card.dataset.name, card.dataset.price);
       card.classList.add("product-card--bump");
-
-      // Feedback no Botão
-      const originalText = addBtn.textContent;
-      addBtn.textContent = "✅ Ok!";
+      addBtn.textContent = "✅  ";
       addBtn.classList.add("btn--success");
-
       setTimeout(() => {
-        addBtn.textContent = originalText;
+        addBtn.textContent = "Adicionar";
         addBtn.classList.remove("btn--success");
         card.classList.remove("product-card--bump");
       }, 800);
-
       animateCartCount();
     }
     return;
   }
 
-  // 2. Ações dentro do carrinho (+, -, remover)
+  // 2. Ações do Carrinho
   const cartBtn = e.target.closest(".cart-item__btn");
   if (cartBtn) {
     const action = cartBtn.dataset.action;
     const id = cartBtn.closest(".cart-item").dataset.id;
     const index = cart.findIndex(i => String(i.id) === String(id));
-
     if (index !== -1) {
       if (action === "increase") cart[index].quantity++;
-      else if (action === "decrease") {
-        if (cart[index].quantity > 1) cart[index].quantity--;
-        else cart.splice(index, 1);
-      } else if (action === "remove") {
-        cart.splice(index, 1);
-      }
+      else if (action === "decrease") cart[index].quantity > 1 ? cart[index].quantity-- : cart.splice(index, 1);
+      else if (action === "remove") cart.splice(index, 1);
       updateCartUI();
       animateCartCount();
     }
@@ -211,11 +177,8 @@ document.addEventListener("click", (e) => {
   }
 
   // 3. Abrir/Fechar Carrinho
-  if (e.target.closest(".cart-toggle")) {
-    toggleCart(true);
-  } else if (e.target.classList.contains("cart__close") || e.target.classList.contains("cart__overlay")) {
-    toggleCart(false);
-  }
+  if (e.target.closest(".cart-toggle")) toggleCart(true);
+  else if (e.target.classList.contains("cart__close") || e.target.classList.contains("cart__overlay")) toggleCart(false);
 
   // 4. Navegação do Carrinho
   if (e.target.id === "btn-next-address") {
@@ -223,50 +186,50 @@ document.addEventListener("click", (e) => {
     cartSectionItems.style.display = "none";
     cartSectionAddress.style.display = "block";
   }
-  
   if (e.target.classList.contains("cart__back")) {
     cartSectionItems.style.display = "block";
     cartSectionAddress.style.display = "none";
   }
 
-  // 5. Filtros de Categoria
+  // 5. FILTROS COM REDIRECIONAMENTO PARA O TOPO
   const catBtn = e.target.closest(".category-btn");
   if (catBtn) {
+    // Atualiza botões ativos
     document.querySelectorAll(".category-btn").forEach(b => b.classList.remove("active"));
     catBtn.classList.add("active");
+    
+    // Aplica os filtros visualmente
     applyFilters();
+
+    // Redireciona para o topo da página suavemente
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
   }
 });
 
-// Busca em tempo real
+// Busca e Formulário
 document.getElementById("search-input")?.addEventListener("input", applyFilters);
-
-// Submit do formulário de endereço
 document.getElementById("address-form")?.addEventListener("submit", (e) => {
   e.preventDefault();
   const name = document.getElementById("customer-name").value.trim();
   const address = document.getElementById("address-input").value.trim();
-
-  let msg = `🛒 *NOVO PEDIDO - BODEGA SÃO JOSÉ*\n\n`;
-  msg += `👤 *Cliente:* ${name}\n📍 *Endereço:* ${address}\n\n📦 *ITENS:*\n`;
   
+  let msg = ` * 🛒 NOVO PEDIDO - BODEGA SÃO JOSÉ*\n\n *👤 Cliente:* ${name}\n *📍 Endereço:* ${address}\n\n *📦 ITENS:*\n`;
   let total = 0;
   cart.forEach(i => {
-    const subtotal = i.price * i.quantity;
-    total += subtotal;
-    msg += `• ${i.name} (${i.quantity}x) - R$ ${subtotal.toFixed(2).replace('.', ',')}\n`;
+    total += i.price * i.quantity;
+    msg += `• ${i.name} (${i.quantity}x) - R$ ${(i.price * i.quantity).toFixed(2).replace('.', ',')}\n`;
   });
-  msg += `\n💰 *TOTAL: R$ ${total.toFixed(2).replace('.', ',')}*`;
-
-  window.open(`https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent(msg)}`, "_blank");
+  msg += `\n *💰 TOTAL: R$ ${total.toFixed(2).replace('.', ',')}*`;
   
+  window.open(`https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent(msg)}`, "_blank");
   cart = [];
   updateCartUI();
   toggleCart(false);
-  e.target.reset();
 });
 
-// Utilitários
 function toggleCart(open) {
   if (cartEl) {
     cartEl.classList.toggle("cart--open", open);
@@ -277,14 +240,7 @@ function toggleCart(open) {
   }
 }
 
-// Inicialização
 document.addEventListener("DOMContentLoaded", () => {
   renderProducts();
   updateCartUI();
-  
-  // Garante que as seções de categoria apareçam (fade-in)
-  document.querySelectorAll('.category-section').forEach(section => {
-    section.style.opacity = "1";
-    section.style.transform = "translateY(0)";
-  });
 });
