@@ -1,5 +1,10 @@
 /* Estilos específicos da página Produtos (produtos.html) */
 
+.logo img {
+  height: 42px;
+  width: auto;
+}
+
 /* SECTION HEADER */
 .section-header {
   text-align: center;
@@ -531,7 +536,10 @@
 .cart__address-form .btn {
   margin-top: auto;
 }
-
+.footer__column img {
+  width: 300px;   /* ajuste o valor */
+  height: auto;
+}
 /* --- ANIMAÇÕES SUTIS --- */
 
 /* Efeito de "pulso" no Card */
