@@ -216,7 +216,7 @@ document.getElementById("address-form")?.addEventListener("submit", (e) => {
   const name = document.getElementById("customer-name").value.trim();
   const address = document.getElementById("address-input").value.trim();
   
-  let msg = ` *NOVO PEDIDO - BODEGA SÃO JOSÉ*\n\n *👤 Cliente:* ${name}\n *Endereço:* ${address}\n\n *ITENS:*\n`;
+  let msg = ` *NOVO PEDIDO - BODEGA SÃO JOSÉ*\n\n *Cliente:* ${name}\n *Endereço:* ${address}\n\n *ITENS:*\n`;
   let total = 0;
   cart.forEach(i => {
     total += i.price * i.quantity;
