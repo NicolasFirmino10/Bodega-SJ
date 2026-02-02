@@ -1,4 +1,4 @@
-﻿const WHATSAPP_PHONE = "5585992140821";
+﻿const WHATSAPP_PHONE = "5585991658747";
 
 // ================= ESTADO DO APP =================
 let cart = [];
