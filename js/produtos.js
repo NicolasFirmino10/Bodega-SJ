@@ -24,7 +24,7 @@ mercearia: [
   { id: 'm160', name: 'ACHOCOLATADO NESCAU', price: '3.00', image: '../../assets/produtos/nescau.png' },
   { id: 'm161', name: 'ACUCAR CAETE', price: '4.50', image: '../../assets/produtos/acucar.png' },
   { id: 'm5', name: 'ADOCANTE ZERO-CAL 100ML', price: '10.50', image: '../../assets/produtos/adocante.png' },
-  { id: 'm6', name: 'AGUA MINERAL INDAIA 500ML C/GAS', price: '2.50', image: '../../assets/produtos/Agua c gas.png' },
+  { id: 'm6', name: 'AGUA MINERAL INDAIA 500ML C/GAS', price: '3.00', image: '../../assets/produtos/Agua c gas.png' },
   { id: 'm7', name: 'AGUA MINERAL INDAIA 500ML S/GAS', price: '2.00', image: '../../assets/produtos/agua s gas.png' },
   { id: 'm8', name: 'AGUA SANITARIA BRILUX MULTI 1L', price: '4.00', image: '../../assets/produtos/brilux.png' },
   { id: 'm9', name: 'AGUA SANITARIA DRAGAO 1L', price: '3.00', image: '../../assets/produtos/dragao.png' },
