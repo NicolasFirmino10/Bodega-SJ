@@ -114,7 +114,7 @@ mercearia: [
   { id: 'm85', name: 'LAMEN NISSIN MIOJO GALINHA CAIPIRA 85G', price: '3.00', image: '../../assets/produtos/nissin galinha.png' },
   { id: 'm86', name: 'LAVA ROUPA LIQUIDO BRILHANTE 700ML', price: '10.50', image: '../../assets/produtos/brilhante.png' },
   { id: 'm87', name: 'LAVA ROUPA LIQUIDO OMO 700ML', price: '14.50', image: '../../assets/produtos/omo.png' },
-  { id: 'm88', name: 'LAVA ROUPA LIQUIDO TIXAN YPE 700ML', price: '13.00', image: '../../assets/produtos/carrinho.png' },
+  { id: 'm88', name: 'LAVA ROUPA LIQUIDO TIXAN YPE 700ML', price: '13.00', image: '../../assets/produtos/tixan.png' },
   { id: 'm89', name: 'LEITE CONDENSADO BETANIA 395G', price: '8.50', image: '../../assets/produtos/leite condensado.png' },
   { id: 'm90', name: 'LEITE DE COCO MENINA 200ML', price: '5.50', image: '../../assets/produtos/leite de coco.png' },
   { id: 'm91', name: 'LEITE EM PO ITAMBE DESNATADO 200G', price: '9.50', image: '../../assets/produtos/leite des 200.png' },
