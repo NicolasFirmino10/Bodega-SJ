@@ -189,7 +189,7 @@ mercearia: [
   { id: 'm154', name: 'SUCO DEL VALLE KAPO MORANGO 200ML', price: '3.20', image: '../../assets/produtos/kapo morango.png' },
   { id: 'm155', name: 'SUCO DEL VALLE KAPO UVA 200ML', price: '3.20', image: '../../assets/produtos/kapo uva.png' },
   { id: 'm26', name: 'TAMPICO 330ML', price: '3.50', image: '../../assets/produtos/tampico 330ml.png' },
-  { id: 'm166', name: 'TRIDENT', price: '2.50', image: '../../assets/produtos/trident.png' },
+  { id: 'm166', name: 'TRIDENT', price: '3.00', image: '../../assets/produtos/trident.png' },
   { id: 'm156', name: 'TRIGO FINNA PAPEL COM FERMENTO 1KG', price: '6.00', image: '../../assets/produtos/finna c fermento.png' },
   { id: 'm157', name: 'TRIGO FINNA PAPEL SEM FERMENTO 1KG', price: '5.50', image: '../../assets/produtos/finna s fermento.png' },
   { id: 'm158', name: 'VELA VIVACE N-10 PLUS 126G', price: '5.00', image: '../../assets/produtos/vela.png' },
